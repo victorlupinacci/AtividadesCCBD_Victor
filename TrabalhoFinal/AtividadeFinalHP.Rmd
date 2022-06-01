@@ -1,0 +1,303 @@
+---
+title: "Atividade Final"
+author: "Victor Lupinacci"
+date: "01/06/2022"
+output: html_document
+---
+
+# Informações sobre a atividade
+
+A atividade objetiva relacionar os pontos de ocorrência coletados e filtrados da espécie _Halichoeres poeyi_ (atividade 3) e relacionar com variáveis ambientais obtidas no [Bio-ORACLE](https://www.bio-oracle.org/) a partir de uma análise de componentes principais (PCA).
+
+## Carregando pacotes necessários
+
+```{r, echo = T, results = 'hide',warning=FALSE, message=FALSE}
+library(biomod2)
+library(raster)
+library(rgdal)
+library(usdm)
+library(spThin)
+library(dplyr)
+library(maptools)
+library(ggbiplot)
+```
+
+## Carregando camadas ambientais
+
+#### Temperatura Mean
+
+```{r, echo = T, results = 'hide',warning=FALSE, message=FALSE}
+temp_mean <- raster("./CamadasAmbientais/Present.Surface.Temperature.Mean.tif")
+```
+
+#### Temperatura Range
+
+```{r, echo = T, results = 'hide',warning=FALSE, message=FALSE}
+temp_range <- raster("./CamadasAmbientais/Present.Surface.Temperature.Range.tif")
+```
+
+#### Salinidade Mean
+
+```{r, echo = T, results = 'hide',warning=FALSE, message=FALSE}
+sal_mean <- raster("./CamadasAmbientais/Present.Surface.Salinity.Mean.tif")
+```
+
+#### Salinidade Range
+
+```{r, echo = T, results = 'hide',warning=FALSE, message=FALSE}
+sal_range <- raster("./CamadasAmbientais/Present.Surface.Salinity.Range.tif")
+```
+
+#### Produtividade Primária Mean
+
+```{r, echo = T, results = 'hide',warning=FALSE, message=FALSE}
+primprod_mean <- raster("./CamadasAmbientais/Present.Surface.Primary.productivity.Mean.tif")
+```
+
+#### Produtividade Primária Range
+
+```{r, echo = T, results = 'hide',warning=FALSE, message=FALSE}
+primprod_range <- raster("./CamadasAmbientais/Present.Surface.Primary.productivity.Range.tif")
+```
+
+#### pH Mean
+
+```{r, echo = T, results = 'hide',warning=FALSE, message=FALSE}
+ph_mean <- raster("./CamadasAmbientais/Present.Surface.pH.Mean.tif")
+```
+
+#### Oxigênio Dissolvido Mean
+
+```{r, echo = T, results = 'hide',warning=FALSE, message=FALSE}
+disox_mean <- raster("./CamadasAmbientais/Present.Surface.Dissolved.oxygen.Mean.tif")
+```
+
+#### Oxigênio Dissolvido Range
+
+```{r, echo = T, results = 'hide',warning=FALSE, message=FALSE}
+disox_range <- raster("./CamadasAmbientais/Present.Surface.Dissolved.oxygen.Range.tif")
+```
+
+#### Velocidade de Corrente Mean
+
+```{r, echo = T, results = 'hide',warning=FALSE, message=FALSE}
+currvelo_mean <- raster("./CamadasAmbientais/Present.Surface.Current.Velocity.Mean.tif")
+```
+
+#### Velocidade de Corrente Range
+
+```{r, echo = T, results = 'hide',warning=FALSE, message=FALSE}
+currvelo_range <- raster("./CamadasAmbientais/Present.Surface.Current.Velocity.Range.tif")
+```
+
+## Checando camadas ambientais
+
+```{r, echo = T}
+compareRaster(temp_mean, temp_range, sal_mean, sal_range, primprod_mean, primprod_range, ph_mean, disox_mean, disox_range, currvelo_mean, currvelo_range)
+```
+
+## Cortando camadas ambientais para Ecorregiões do Atlântico Oeste
+
+#### Carregando shapefile
+
+```{r, echo = T, results = 'hide',warning=FALSE, message=FALSE}
+ecorreg <- readOGR("./Ecorreg/Shape_Stega_Atlantico_EUA_Brazil.shp")
+```
+
+#### Temperatura Mean
+``` {r,fig.align = "center" }
+temp_mean <- mask(crop(temp_mean, ecorreg), ecorreg)
+plot(temp_mean)
+```
+
+#### Temperatura Range
+
+``` {r,fig.align = "center" }
+temp_range <- mask(crop(temp_range, ecorreg),ecorreg)
+plot(temp_range)
+```
+
+#### Salinidade Mean
+
+``` {r,fig.align = "center" }
+sal_mean <- mask(crop(sal_mean, ecorreg), ecorreg)
+plot(sal_mean)
+```
+
+#### Salinidade Range
+
+``` {r,fig.align = "center" }
+sal_range <- mask(crop(sal_range, ecorreg),ecorreg)
+plot(sal_range)
+```
+
+#### Produtividade Primária Mean
+
+``` {r,fig.align = "center" }
+primprod_mean <- mask(crop(primprod_mean, ecorreg), ecorreg)
+plot(primprod_mean)
+```
+
+#### Produtividade Primária Range
+
+``` {r,fig.align = "center" }
+primprod_range <- mask(crop(primprod_range, ecorreg), ecorreg)
+plot(primprod_range)
+```
+
+#### pH Mean
+
+``` {r,fig.align = "center" }
+ph_mean <- mask(crop(ph_mean, ecorreg), ecorreg)
+plot(ph_mean)
+```
+
+#### Oxigênio Dissolvido Mean
+
+``` {r,fig.align = "center" }
+disox_mean <- mask(crop(disox_mean, ecorreg),ecorreg)
+plot(disox_mean)
+```
+
+#### Oxigênio Dissolvido Range
+
+``` {r,fig.align = "center" }
+disox_range <- mask(crop(disox_range, ecorreg),ecorreg)
+plot(disox_range)
+```
+
+#### Velocidade de Corrente Mean
+
+``` {r,fig.align = "center" }
+currvelo_mean <- mask(crop(currvelo_mean, ecorreg), ecorreg)
+plot(currvelo_mean)
+```
+
+#### Velocidade de Corrente Range
+
+``` {r,fig.align = "center" }
+currvelo_range <- mask(crop(currvelo_range, ecorreg), ecorreg)
+plot(currvelo_range)
+```
+
+## Unindo as variáveis em um 'stack'
+
+``` {r,fig.align = "center" }
+stack <- stack(temp_mean, temp_range, sal_mean, sal_range, primprod_mean, primprod_range, ph_mean, disox_mean, disox_range, currvelo_mean, currvelo_range)
+
+stack <- mask(crop(stack, ecorreg),ecorreg)
+summary(stack)
+plot(stack)
+```
+
+## Checando multicolinearidade entre as variáveis
+
+#### Removendo stepwise com threshold = 0.7
+
+``` {r }
+vifcor(stack,th=0.7)
+
+vifstep(stack, th = 10)
+```
+
+Escolha as variáveis com base no vifcor e vifstep, dando prioridade para o vifcor (mais restritivo) e acrescentando/escolhendo as do vifstep que podem ter importância para biologia da espécie.
+
+Variáveis escolhidas: 'sal_range', 'temp_range', 'currvelo_mean', 'pH_mean', 'primprod_range' e 'disox_mean'.
+
+## Novo stack com as variáveis escolhidas
+
+``` {r,fig.align = "center" }
+stack2 <- stack(sal_range, temp_range, currvelo_mean, ph_mean, primprod_mean, disox_mean)
+plot(stack2)
+```
+
+## Carregando csv de ocorrências da espécie _Halichoeres poeyi_ criado na atividade 3
+
+``` {r }
+occ_hp <- read.csv("./occ_halichoerespoeyi.csv", header=T,  sep = ",")
+head(occ_hp) 
+```
+
+#### Selecionando colunas de interesse
+
+``` {r }
+occ_hp <- occ_hp %>%
+  dplyr::select(scientificName, decimalLongitude, decimalLatitude)
+```
+
+#### Filtrando registros de ocorrência com distância de até 20km para diminuir a correlação espacial
+
+Criando um diretorio para salvar os dados filtrados
+```{r, echo = T, results = 'hide',warning=FALSE, message=FALSE}
+dir.create("./occ_hp")
+```
+
+```{r, echo = T,warning=FALSE, message=FALSE}
+occ_hp_20km <- 
+  thin( loc.data = occ_hp, 
+        lat.col = "decimalLatitude", long.col = "decimalLongitude", 
+        spec.col = "scientificName", 
+        thin.par = 20,
+        reps = 5, 
+        locs.thinned.list.return = TRUE, 
+        write.files = TRUE, 
+        max.files = 2, 
+        out.dir = "./occ_hp", out.base = "occ_hp_20km", 
+        write.log.file = TRUE,
+        log.file = "./occ_hp/occ_hp_20km_log.txt")
+```
+
+Carregando o novo arquivo com o processo de filtragem espacial realizado.
+
+``` {r }
+occ_hp_20km <- read.csv("./occ_hp/occ_hp_20km_thin1.csv", sep=",")
+View(occ_hp_20km)
+```
+
+#### Transformando coordenadas em dados espaciais
+
+``` {r,fig.align = "center" }
+coordinates(occ_hp_20km) <- ~ decimalLongitude+decimalLatitude
+class(occ_hp_20km)
+plot(ecorreg)
+plot(occ_hp_20km, add=TRUE)
+
+proj4string (occ_hp_20km) <- CRS("+proj=longlat +datum=WGS84 +no_defs")
+
+occ_hp_20km
+```
+
+#### Extraindo valores das variaveis nos pontos de ocorrência da espécie
+
+``` {r }
+valores_var_hp <- data.frame(raster::extract(stack2, occ_hp_20km))
+View(valores_var_hp)
+```
+
+#### Retirando os pontos com NA
+
+``` {r }
+head(valores_var_hp)
+valores_var_hp <- valores_var_hp %>% tidyr::drop_na(Present.Surface.Salinity.Range, Present.Surface.Temperature.Range, Present.Surface.Current.Velocity.Mean, Present.Surface.pH.Mean, Present.Surface.Dissolved.oxygen.Mean, Present.Surface.Primary.productivity.Mean )
+```
+
+## PCA
+
+``` {r }
+PCA <- prcomp(valores_var_hp, center = TRUE, scale. = TRUE)
+PCA
+
+attributes(PCA)
+summary(PCA)
+```
+
+``` {r,fig.align = "center" }
+g_PCA <- ggbiplot(PCA, obs.scale = 0.5, var.scale = 5, ellipse = FALSE, alpha = 0.1, varname.size = 2.5, varname.adjust = 2.5, var.axes = TRUE, varname.abbrev = TRUE)
+
+g_PCA <- g_PCA+theme_bw()
+
+g_PCA <- g_PCA + scale_color_discrete(name = '')
+g_PCA <- g_PCA + theme(legend.direction = 'horizontal',legend.position = 'top')
+
+plot(g_PCA)
+```

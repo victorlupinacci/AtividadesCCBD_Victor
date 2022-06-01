@@ -1,0 +1,16 @@
+Nome do arquivo;Amostra;Ano;Mês;Dia;Área;Famíia;Gênero;Espécie;Latitude;Longitude;Sepal length (cm);Sepal width (cm);Petal length (cm);Petal width (cm)
+A16;A15;1929;12;1;Site1;Iriaceae;Iris;Iris setosa;48.935966;-64.840984;5.8;4;1.2;0.2
+A2;A21;1929;12;1;Site1;Iriaceae;Iris;Iris setosa;48.935966;-64.840984;5.4;3.4;1.7;0.2
+A41;A40;1929;12;1;Site3;Iriaceae;Iris;Iris setosa;48.329837;-65.512333;5.1;3.4;1.5;0.2
+A44;A49;1929;12;1;Site3;Iriaceae;Iris;Iris setosa;48.329837;-65.512333;5.3;3.7;1.5;0.2
+A69;A56;1930;2;13;Site2;Iriaceae;Iris;Iris versicolor;48.540502;-64.766512;5.7;2.8;4.5;1.3
+A86;A58;1929;12;1;Site3;Iriaceae;Iris;Iris versicolor;48.329837;-65.512333;4.9;2.4;3.3;1
+A71;A62;1930;2;13;Site2;Iriaceae;Iris;Iris versicolor;48.540502;-64.766512;5.9;3;4.2;1.5
+A64;A90;1929;12;1;Site1;Iriaceae;Iris;Iris versicolor;48.935966;-64.840984;5.5;2.5;4;1.3
+A118;A101;1930;2;13;Site2;Iriaceae;Iris;Iris virginica;48.540502;-64.766512;6.3;3.3;6;2.5
+A120;A107;1930;2;13;Site2;Iriaceae;Iris;Iris virginica;48.540502;-64.766512;4.9;2.5;4.5;1.7
+A139;A115;1929;12;1;Site3;Iriaceae;Iris;Iris virginica;48.329837;-65.512333;5.8;2.8;5.1;2.4
+A123;A116;1930;2;13;Site2;Iriaceae;Iris;Iris virginica;48.540502;-64.766512;6.4;3.2;5.3;2.3
+A141;A121;1929;12;1;Site3;Iriaceae;Iris;Iris virginica;48.329837;-65.512333;6.9;3.2;5.7;2.3
+A143;A127;1929;12;1;Site3;Iriaceae;Iris;Iris virginica;48.329837;-65.512333;6.2;2.8;4.8;1.8
+A131;A140;1930;2;13;Site2;Iriaceae;Iris;Iris virginica;48.540502;-64.766512;6.9;3.1;5.4;2.1

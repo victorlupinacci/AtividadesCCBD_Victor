@@ -1,0 +1,21 @@
+********************************************** 
+ Beginning Spatial Thinning.
+ Script Started at: Tue May 24 11:08:25 2022
+
+Thinning Parameter Used (in km): 20
+Number of replicates of thinning script: 5
+
+Elapsed time for thinning completion
+35.59 39.41 79.67 NA NA
+
+Number of data.frames per locations retained
+loc.cnt df.freq
+67	68	69
+1	2	2
+Maximum number of records after thinning: 69
+Number of data.frames with max records: 2
+
+**New *.csv file creation:**
+Writing new *.csv files to output directory: ./occ_hp
+Writing file: ./occ_hp/occ_hp_20km_thin1.csv
+Writing file: ./occ_hp/occ_hp_20km_thin2.csv

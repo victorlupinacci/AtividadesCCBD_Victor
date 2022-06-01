@@ -1,0 +1,54 @@
+********************************************** 
+ Beginning Spatial Thinning.
+ Script Started at: Tue May 24 11:14:44 2022
+
+Thinning Parameter Used (in km): 20
+Number of replicates of thinning script: 5
+
+Elapsed time for thinning completion
+35.5 38.01 73.95 NA NA
+
+Number of data.frames per locations retained
+loc.cnt df.freq
+68	69
+2	3
+Maximum number of records after thinning: 69
+Number of data.frames with max records: 3
+
+**New *.csv file creation:**
+Writing new *.csv files to output directory: ./occ_hp
+./occ_hp/occ_hp_20km_thin1_new.csv ' already exists. Renaming file 
+                                   to avoid overwriting.
+Writing file: ./occ_hp/occ_hp_20km_thin1_new.csv
+./occ_hp/occ_hp_20km_thin2_new.csv ' already exists. Renaming file 
+                                   to avoid overwriting.
+Writing file: ./occ_hp/occ_hp_20km_thin2_new.csv
+********************************************** 
+ Beginning Spatial Thinning.
+ Script Started at: Tue May 24 11:30:59 2022
+
+Thinning Parameter Used (in km): 20
+Number of replicates of thinning script: 5
+
+Elapsed time for thinning completion
+36.72 40.7 78.61 NA NA
+
+Number of data.frames per locations retained
+loc.cnt df.freq
+68	69
+3	2
+Maximum number of records after thinning: 69
+Number of data.frames with max records: 2
+
+**New *.csv file creation:**
+Writing new *.csv files to output directory: ./occ_hp
+./occ_hp/occ_hp_20km_thin1_new.csv ' already exists. Renaming file 
+                                   to avoid overwriting.
+./occ_hp/occ_hp_20km_thin1_new_new.csv ' already exists. Renaming file 
+                                   to avoid overwriting.
+Writing file: ./occ_hp/occ_hp_20km_thin1_new_new.csv
+./occ_hp/occ_hp_20km_thin2_new.csv ' already exists. Renaming file 
+                                   to avoid overwriting.
+./occ_hp/occ_hp_20km_thin2_new_new.csv ' already exists. Renaming file 
+                                   to avoid overwriting.
+Writing file: ./occ_hp/occ_hp_20km_thin2_new_new.csv
